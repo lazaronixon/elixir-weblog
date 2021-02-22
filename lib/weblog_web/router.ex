@@ -16,6 +16,7 @@ defmodule WeblogWeb.Router do
   scope "/", WeblogWeb do
     pipe_through :browser
 
+    resources "/posts", PostController  
     get "/", PageController, :index
   end
 
