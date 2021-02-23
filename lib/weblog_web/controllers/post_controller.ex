@@ -31,7 +31,10 @@ defmodule WeblogWeb.PostController do
         end
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render conn, :new, changeset: changeset
+        case get_format(conn) do
+          "html" -> conn |> render(:new, changeset: changeset)
+          "json" -> conn |> put_status(:unprocessable_entity) |> render(WeblogWeb.ErrorView, "error.json", changeset: changeset)
+        end
     end
   end
 
@@ -44,7 +47,10 @@ defmodule WeblogWeb.PostController do
         end
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render conn, :edit, changeset: changeset
+        case get_format(conn) do
+          "html" -> conn |> render(:edit, changeset: changeset)
+          "json" -> conn |> put_status(:unprocessable_entity) |> render(WeblogWeb.ErrorView, "error.json", changeset: changeset)
+        end
     end
   end
 
