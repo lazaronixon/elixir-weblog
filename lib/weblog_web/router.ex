@@ -16,14 +16,15 @@ defmodule WeblogWeb.Router do
   scope "/", WeblogWeb do
     pipe_through :browser
 
-    resources "/posts", PostController  
-    get "/", PageController, :index
+    resources "/posts", PostController
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", WeblogWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", WeblogWeb do
+    pipe_through :api
+
+    resources "/posts", PostController
+  end
 
   # Enables LiveDashboard only for development
   #
