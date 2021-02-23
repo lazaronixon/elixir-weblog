@@ -2,7 +2,7 @@ defmodule WeblogWeb.Router do
   use WeblogWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
+    plug :accepts, ["html", "json"]
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
@@ -16,15 +16,14 @@ defmodule WeblogWeb.Router do
   scope "/", WeblogWeb do
     pipe_through :browser
 
+    get "/", PageController, :index
     resources "/posts", PostController
   end
 
   # Other scopes may use custom stacks.
-  scope "/api", WeblogWeb do
-    pipe_through :api
-
-    resources "/posts", PostController
-  end
+  # scope "/api", WeblogWeb do
+  #   pipe_through :api
+  # end
 
   # Enables LiveDashboard only for development
   #
